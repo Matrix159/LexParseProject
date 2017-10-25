@@ -53,15 +53,28 @@ return 0;
 * @param r Red
 * @param g Green
 * @param b Blue
-* @return 1 if valid colors, 0 otherwise
 */
-int checkValidColor(int r, int g, int b) {
+void checkValidColor(int r, int g, int b) {
 
-    if((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255) }
+    if((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255)) {
         set_color(r, g, b);
-	return 1;
     } else {
+        printf("Invalid color found.");
+    }
+}
+
+/**
+* Check for valid coordinate values that between 0 <= Width And Height
+* @param x First value to check
+* @param y Second value to check
+* @return 1 if valid, 0 otherwise
+*/
+int checkValues(int x, int y) {
+
+    if(x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
         return 0;
+    } else {
+	return 1;
     }
 }
 
