@@ -5,6 +5,10 @@
 extern int yylineno;
 
 int yylex();
+void doPoint(int one, int two);
+void doCircle(int one, int two, int three);
+void doRectangle(int one, int two, int three, int four);
+void doLine(int one, int two, int three, int four);
 void checkValidColor(int r, int g, int b);
 int checkValues(int x, int y);
 void yyerror(const char* s);
@@ -35,10 +39,10 @@ statement_list: statement
 		| statement statement_list
 		;
 statement: command END_STATEMENT;
-command: LINE INT INT INT INT { line($2, $3, $4, $5); }
-	| POINT INT INT { point($2, $3); }
-	| CIRCLE INT INT INT { circle($2, $3, $4); }
-	| RECTANGLE INT INT INT INT { rectangle($2, $3, $4, $5); }
+command: LINE INT INT INT INT { doLine($2, $3, $4, $5); }
+	| POINT INT INT { doPoint($2, $3); }
+	| CIRCLE INT INT INT { doCircle($2, $3, $4); }
+	| RECTANGLE INT INT INT INT { doRectangle($2, $3, $4, $5); }
 	| SET_COLOR INT INT INT { checkValidColor($2, $3, $4); }
 	;
 end_command: END END_STATEMENT;
@@ -70,6 +74,11 @@ void doLine(int one, int two, int three, int four) {
     }
 }
 
+/**
+* Draws a point but with validation
+* @param one X coordinate
+* @param two Y coordinate
+*/
 void doPoint(int one, int two) {
 
     if(checkValues(one, two) == 1) {
@@ -77,6 +86,12 @@ void doPoint(int one, int two) {
     }
 }
 
+/**
+* Draws a circle with validation
+* @param one X coordinate of circle
+* @param two Y coordinate of circle
+* @param three The size of the circle
+*/
 void doCircle(int one, int two, int three) {
 
     if(checkValues(one, two) == 1) {
@@ -84,6 +99,13 @@ void doCircle(int one, int two, int three) {
     }
 }
 
+/**
+* Draws a rectangle with validation
+* @param one The X coordinate
+* @param two The Y coordinate 
+* @param three The width of the rectangle
+* @param four The height of the rectangle
+*/
 void doRectangle(int one, int two, int three, int four) {
 
     if(checkValues(one, two) == 1) {
@@ -103,7 +125,7 @@ void checkValidColor(int r, int g, int b) {
     if((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255)) {
         set_color(r, g, b);
     } else {
-        fprintf(stderr, "Invalid color found.");
+        fprintf(stderr, "Invalid color found.\n");
     }
 }
 
@@ -116,7 +138,7 @@ void checkValidColor(int r, int g, int b) {
 int checkValues(int x, int y) {
 
     if(x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
-	fprintf(stderr, "Bad coordinates found");
+	fprintf(stderr, "Bad coordinates found\n");
         return 0;
     } else {
 	return 1;
@@ -125,6 +147,6 @@ int checkValues(int x, int y) {
 
 void yyerror(const char* s) {
 
-fprintf(stderr, "%s\n", s);
+    fprintf(stderr, "%s\n", s);
 }
 

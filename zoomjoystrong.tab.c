@@ -70,11 +70,15 @@
 extern int yylineno;
 
 int yylex();
+void doPoint(int one, int two);
+void doCircle(int one, int two, int three);
+void doRectangle(int one, int two, int three, int four);
+void doLine(int one, int two, int three, int four);
 void checkValidColor(int r, int g, int b);
 int checkValues(int x, int y);
 void yyerror(const char* s);
 
-#line 78 "zoomjoystrong.tab.c" /* yacc.c:339  */
+#line 82 "zoomjoystrong.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -126,13 +130,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "zoomjoystrong.y" /* yacc.c:355  */
+#line 17 "zoomjoystrong.y" /* yacc.c:355  */
 
   int iVal;
   float fVal;
   char* sVal;
 
-#line 136 "zoomjoystrong.tab.c" /* yacc.c:355  */
+#line 140 "zoomjoystrong.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -149,7 +153,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 153 "zoomjoystrong.tab.c" /* yacc.c:358  */
+#line 157 "zoomjoystrong.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -447,8 +451,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    33,    33,    34,    35,    37,    38,    39,    40,    41,
-      42,    44
+       0,    37,    37,    38,    39,    41,    42,    43,    44,    45,
+      46,    48
 };
 #endif
 
@@ -1231,37 +1235,37 @@ yyreduce:
   switch (yyn)
     {
         case 6:
-#line 38 "zoomjoystrong.y" /* yacc.c:1646  */
-    { line((yyvsp[-3].iVal), (yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
-#line 1237 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 42 "zoomjoystrong.y" /* yacc.c:1646  */
+    { doLine((yyvsp[-3].iVal), (yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
+#line 1241 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 39 "zoomjoystrong.y" /* yacc.c:1646  */
-    { point((yyvsp[-1].iVal), (yyvsp[0].iVal)); }
-#line 1243 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 43 "zoomjoystrong.y" /* yacc.c:1646  */
+    { doPoint((yyvsp[-1].iVal), (yyvsp[0].iVal)); }
+#line 1247 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 40 "zoomjoystrong.y" /* yacc.c:1646  */
-    { circle((yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
-#line 1249 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 44 "zoomjoystrong.y" /* yacc.c:1646  */
+    { doCircle((yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
+#line 1253 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 41 "zoomjoystrong.y" /* yacc.c:1646  */
-    { rectangle((yyvsp[-3].iVal), (yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
-#line 1255 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 45 "zoomjoystrong.y" /* yacc.c:1646  */
+    { doRectangle((yyvsp[-3].iVal), (yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
+#line 1259 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 42 "zoomjoystrong.y" /* yacc.c:1646  */
+#line 46 "zoomjoystrong.y" /* yacc.c:1646  */
     { checkValidColor((yyvsp[-2].iVal), (yyvsp[-1].iVal), (yyvsp[0].iVal)); }
-#line 1261 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 1265 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1265 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 1269 "zoomjoystrong.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1489,7 +1493,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 45 "zoomjoystrong.y" /* yacc.c:1906  */
+#line 49 "zoomjoystrong.y" /* yacc.c:1906  */
 
 
 /**
@@ -1518,6 +1522,11 @@ void doLine(int one, int two, int three, int four) {
     }
 }
 
+/**
+* Draws a point but with validation
+* @param one X coordinate
+* @param two Y coordinate
+*/
 void doPoint(int one, int two) {
 
     if(checkValues(one, two) == 1) {
@@ -1525,6 +1534,12 @@ void doPoint(int one, int two) {
     }
 }
 
+/**
+* Draws a circle with validation
+* @param one X coordinate of circle
+* @param two Y coordinate of circle
+* @param three The size of the circle
+*/
 void doCircle(int one, int two, int three) {
 
     if(checkValues(one, two) == 1) {
@@ -1532,6 +1547,13 @@ void doCircle(int one, int two, int three) {
     }
 }
 
+/**
+* Draws a rectangle with validation
+* @param one The X coordinate
+* @param two The Y coordinate 
+* @param three The width of the rectangle
+* @param four The height of the rectangle
+*/
 void doRectangle(int one, int two, int three, int four) {
 
     if(checkValues(one, two) == 1) {
@@ -1551,7 +1573,7 @@ void checkValidColor(int r, int g, int b) {
     if((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255)) {
         set_color(r, g, b);
     } else {
-        fprintf(stderr, "Invalid color found.");
+        fprintf(stderr, "Invalid color found.\n");
     }
 }
 
@@ -1564,7 +1586,7 @@ void checkValidColor(int r, int g, int b) {
 int checkValues(int x, int y) {
 
     if(x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
-	fprintf(stderr, "Bad coordinates found");
+	fprintf(stderr, "Bad coordinates found\n");
         return 0;
     } else {
 	return 1;
@@ -1573,6 +1595,6 @@ int checkValues(int x, int y) {
 
 void yyerror(const char* s) {
 
-fprintf(stderr, "%s\n", s);
+    fprintf(stderr, "%s\n", s);
 }
 

@@ -1,5 +1,5 @@
 rectangle 0 0 1023 767;
-rectangle 1 0 1022 766;
+rectangle 1 5000 1022 766;
 rectangle 2 2 1021 765;
 
 set_color 0 101 164;
