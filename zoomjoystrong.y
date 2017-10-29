@@ -2,6 +2,11 @@
 
 #include <stdio.h>
 #include "zoomjoystrong.h"
+extern int yylineno;
+
+int yylex();
+void checkValidColor(int r, int g, int b);
+int checkValues(int x, int y);
 void yyerror(const char* s);
 %}
 
@@ -39,12 +44,51 @@ command: LINE INT INT INT INT { line($2, $3, $4, $5); }
 end_command: END END_STATEMENT;
 %%
 
+/**
+* Start of the parser obviously
+*/
 int main(int arc, char** argv){
+
 setup();
 yyparse();
-
 finish();
 return 0;
+
+}
+
+/**
+* Draws a line but adds validation to x, y coordinates
+* @param one The X coordinate
+* @param two The Y coordinate
+* @param three X coordinate of end of line
+* @param four Y coordinate of end of line 
+*/
+void doLine(int one, int two, int three, int four) {
+
+    if(checkValues(one, two) == 1) {
+        line(one, two, three, four);
+    }
+}
+
+void doPoint(int one, int two) {
+
+    if(checkValues(one, two) == 1) {
+	point(one, two);
+    }
+}
+
+void doCircle(int one, int two, int three) {
+
+    if(checkValues(one, two) == 1) {
+	circle(one, two, three);
+    }
+}
+
+void doRectangle(int one, int two, int three, int four) {
+
+    if(checkValues(one, two) == 1) {
+	rectangle(one, two, three, four);
+    }
 }
 
 /**
@@ -59,7 +103,7 @@ void checkValidColor(int r, int g, int b) {
     if((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255)) {
         set_color(r, g, b);
     } else {
-        printf("Invalid color found.");
+        fprintf(stderr, "Invalid color found.");
     }
 }
 
@@ -72,6 +116,7 @@ void checkValidColor(int r, int g, int b) {
 int checkValues(int x, int y) {
 
     if(x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
+	fprintf(stderr, "Bad coordinates found");
         return 0;
     } else {
 	return 1;

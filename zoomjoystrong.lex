@@ -19,7 +19,7 @@
 [0-9]+	{yylval.iVal = atoi(yytext); return(INT); }
 [+-]?([0-9]*[.])?[0-9]+ {yylval.fVal = atof(yytext); return(FLOAT); }
 [\t\n ] {}
-. { printf("You screwed up"); }
+. { printf("You screwed up fool\n"); }
 
 %%
 
