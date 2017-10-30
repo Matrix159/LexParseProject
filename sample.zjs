@@ -12,13 +12,13 @@ circle 512 384 250;
 set_color 255 255 0;
 line 5000 384 0 0;
 line 512 50 0 767;
-line 512 384 1023 0;
-line 512 384 1023 767;
+line 512 384 -1023 0;
+line 512 384 1023 -767;
 
 set_color 241 142 238;
 point 623 5000;
 set_color 169 300 136;
-point 440 43;
+point 440 43 500;
 set_color 122 135 75;
 point 204 492;
 set_color 41 89 54;
