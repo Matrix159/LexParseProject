@@ -53,11 +53,10 @@ end_command: END END_STATEMENT;
 */
 int main(int arc, char** argv){
 
-setup();
-yyparse();
-finish();
-return 0;
-
+    setup();
+    yyparse();
+    finish();
+    return 0;
 }
 
 /**
